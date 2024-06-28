@@ -1,0 +1,33 @@
+header {
+  background-color: var(--light-color);
+  color: var(--black-color);
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  z-index: 1000;
+  border-bottom: solid 1px #e0e0e0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 60px;
+  margin: auto;
+  max-width: var(--site-width);
+}
+
+.nav-link {
+  color: #007bff;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #f8f9fa;
+  color: #0056b3;
+}

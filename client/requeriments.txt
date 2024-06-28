@@ -1,0 +1,12 @@
+npm i
+
+devDependencies
+
+dependencies
+
+npm i react-router-dom
+npm i axios
+npm i jwt-decode
+npm i sweetalert
+npm i redux react-redux redux-thunk
+npm i react-bootstrap bootstrap
