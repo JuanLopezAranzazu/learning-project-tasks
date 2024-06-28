@@ -9,7 +9,7 @@ const Unauthorized = () => {
     <section>
       <h1>Unauthorized</h1>
       <div>
-        <button type="button" className="primary" onClick={goBack}>
+        <button type="button" className="btn-primary" onClick={goBack}>
           Volver
         </button>
       </div>

@@ -6,6 +6,8 @@ import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 // actions
 import { startGetTask, startEditTask } from "../../actions/task";
+// services
+import { getTask } from "../../services/task";
 
 const priorities = ["Baja", "Media", "Alta"];
 const statuses = ["Pendiente", "En progreso", "Completada"];
@@ -27,11 +29,14 @@ const TaskEdit = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(startGetTask(id));
-  }, [id, dispatch]);
+  // const tasks = useSelector((state) => state.tasks);
+  // const taskToEdit = tasks.find((task) => task._id === id);
 
   const taskToEdit = useSelector((state) => state.singleTask);
+
+  useEffect(() => {
+    dispatch(startGetTask(id));
+  }, []);
 
   useEffect(() => {
     if (taskToEdit) {
@@ -43,6 +48,22 @@ const TaskEdit = () => {
       });
     }
   }, [taskToEdit]);
+
+  // useEffect(() => {
+  //   getTask(id)
+  //     .then((response) => {
+  //       const task = response.data;
+  //       setFormValues({
+  //         title: task.title || "",
+  //         description: task.description || "",
+  //         priority: task.priority || "",
+  //         status: task.status || "",
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       swal("Ocurrio un error", err.message, "error");
+  //     });
+  // }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -99,7 +120,7 @@ const TaskEdit = () => {
 
   return (
     <section>
-      <h2>Editar tarea</h2>
+      <h2>Editar Tarea</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Titulo</label>
@@ -168,7 +189,7 @@ const TaskEdit = () => {
         </div>
         <div className="form-actions">
           <button type="button" className="btn-secondary" onClick={goBack}>
-            Volver
+            Cancelar
           </button>
           <button type="submit" className="btn-primary">
             Guardar

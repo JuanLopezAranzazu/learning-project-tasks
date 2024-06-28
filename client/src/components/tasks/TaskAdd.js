@@ -89,7 +89,7 @@ const TaskAdd = () => {
         </div>
         <div className="form-actions">
           <button type="button" className="btn-secondary" onClick={goBack}>
-            Volver
+            Cancelar
           </button>
           <button type="submit" className="btn-primary">
             Guardar

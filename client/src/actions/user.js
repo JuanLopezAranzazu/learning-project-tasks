@@ -54,9 +54,6 @@ export const startRegisterUser = (formData, redirect) => {
           console.log(response?.data);
           // mostrar mensaje de éxito
           swal("Registro exitoso", "", "success");
-          // guardar token en localStorage
-          // localStorage.setItem("authToken", response.data.token);
-          // dispatch(loginUser(response.data.user));
           redirect(); // redirigir a la página de inicio
         }
       })

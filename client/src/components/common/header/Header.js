@@ -26,6 +26,11 @@ const Header = () => {
             <Link to="/" className="nav-link">
               Tareas
             </Link>
+            {user?.role?.name === "admin" && (
+              <Link to="/users" className="nav-link">
+                Usuarios
+              </Link>
+            )}
             <button type="button" className="btn-danger" onClick={handleClick}>
               Cerrar sesion
             </button>

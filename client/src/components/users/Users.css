@@ -1,10 +1,10 @@
-.task-list {
+.user-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.task {
+.user {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,20 +15,20 @@
   border: solid 1px #e0e0e0;
 }
 
-.task-info {
+.user-info {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.task-actions {
+.user-actions {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
 }
 
-.task-list-header {
+.user-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,3 +36,4 @@
   padding-bottom: 1rem;
   border-bottom: solid 1px #e0e0e0;
 }
+

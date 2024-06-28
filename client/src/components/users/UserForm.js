@@ -1,30 +1,69 @@
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import swal from "sweetalert";
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // actions
-import { startRegisterUser } from "../actions/user";
+import { startAddUser, startEditUser, startGetUser } from "../../actions/users";
 // services
-import { registerUser } from "../services/user";
+import { getUser } from "../../services/users";
 
-const Register = () => {
+const roles = [
+  { name: "Administrador", value: "admin" },
+  { name: "Usuario", value: "user" },
+];
+
+const UserForm = () => {
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    roleName: "",
   });
   const [formErrors, setFormErrors] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    roleName: "",
   });
+  const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
   const dispatch = useDispatch();
+
+  // const userToEdit = useSelector((state) => state.singleUser);
+
+  // useEffect(() => {
+  //   if (userToEdit) {
+  //     setFormValues({
+  //       firstName: userToEdit.firstName || "",
+  //       lastName: userToEdit.lastName || "",
+  //       email: userToEdit.email || "",
+  //       password: "",
+  //       roleName: userToEdit?.role?.name || "",
+  //     });
+  //   }
+  // }, [userToEdit]);
+
+  useEffect(() => {
+    if (id) {
+      getUser(id)
+        .then((response) => {
+          const user = response.data;
+          setFormValues({
+            firstName: user.firstName || "",
+            lastName: user.lastName || "",
+            email: user.email || "",
+            password: "",
+            roleName: user?.role?.name || "",
+          });
+        })
+        .catch((err) => {
+          swal("Ocurrio un error", err.message, "error");
+        });
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +99,11 @@ const Register = () => {
             ? "La contraseña debe ser de 6 a 128 caracteres"
             : "";
         break;
+      case "roleName":
+        errors.roleName = roles.some((role) => role.value === value)
+          ? ""
+          : "El rol es invalido!";
+        break;
       default:
         break;
     }
@@ -74,26 +118,24 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm(formErrors)) {
-      // dispatch(startRegisterUser(formValues, () => navigate(from)));
-
-      registerUser(formValues)
-        .then((response) => {
-          console.log(response?.data);
-          swal("Usuario registrado", "Por favor inicia sesión", "success");
-          navigate(from);
-        })
-        .catch((err) => {
-          swal("Ocurrio un error", err.message, "error");
-        });
-    } else {
+    if (!validateForm(formErrors)) {
       swal("Error", "Datos incorrectos", "error");
+      return;
     }
+    console.log(formValues);
+    if (id) {
+      dispatch(startEditUser(id, formValues));
+    } else {
+      dispatch(startAddUser(formValues));
+    }
+    navigate(-1);
   };
+
+  const goBack = () => navigate(-1);
 
   return (
     <section>
-      <h1>Registrarse</h1>
+      {id ? <h2>Editar Usuario</h2> : <h2>Crear Usuario</h2>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="firstName">Nombre</label>
@@ -151,12 +193,37 @@ const Register = () => {
             <span className="error">{formErrors.password}</span>
           )}
         </div>
-        <button type="submit" className="btn-primary">
-          Registrarse
-        </button>
+        <div className="form-group">
+          <label htmlFor="roleName">Rol</label>
+          <select
+            id="roleName"
+            name="roleName"
+            value={formValues.roleName}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Seleccionar un rol</option>
+            {roles.map((role) => (
+              <option key={role.value} value={role.value}>
+                {role.name}
+              </option>
+            ))}
+          </select>
+          {formErrors.roleName.length > 0 && (
+            <span className="error">{formErrors.roleName}</span>
+          )}
+        </div>
+        <div className="form-actions">
+          <button type="button" className="btn-secondary" onClick={goBack}>
+            Cancelar
+          </button>
+          <button type="submit" className="btn-primary">
+            Guardar
+          </button>
+        </div>
       </form>
     </section>
   );
 };
 
-export default Register;
+export default UserForm;

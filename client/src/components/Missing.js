@@ -10,7 +10,7 @@ const Missing = () => {
       <h1>Error 404</h1>
       <p>Page Not Found</p>
       <div>
-        <button type="button" className="primary" onClick={goBack}>
+        <button type="button" className="btn-primary" onClick={goBack}>
           Volver
         </button>
       </div>

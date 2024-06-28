@@ -5,6 +5,8 @@ import { thunk } from "redux-thunk";
 import userReducer from "../reducers/user";
 import tasksReducer from "../reducers/task";
 import singleTaskReducer from "../reducers/singleTask";
+import usersReducer from "../reducers/users";
+import singleUserReducer from "../reducers/singleUser";
 
 const configureStore = () => {
   const store = createStore(
@@ -12,6 +14,8 @@ const configureStore = () => {
       user: userReducer,
       tasks: tasksReducer,
       singleTask: singleTaskReducer,
+      users: usersReducer,
+      singleUser: singleUserReducer,
     }),
     applyMiddleware(thunk)
   );

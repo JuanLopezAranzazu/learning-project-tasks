@@ -23,11 +23,7 @@ const Task = ({ task }) => {
         <h2>{task.title}</h2>
         <p>{task.description}</p>
         <p>Prioridad {task.priority}</p>
-        {task.done ? (
-          <p>La tarea esta completa</p>
-        ) : (
-          <p>La tarea NO esta completa</p>
-        )}
+        <p>Estado {task.status}</p>
       </div>
       <div className="task-actions">
         <button type="button" className="btn-primary" onClick={handleEditTask}>

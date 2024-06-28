@@ -1,44 +1,44 @@
 import { useEffect } from "react";
-import "./Tasks.css";
+import "./Users.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // components
-import Task from "./Task";
+import User from "./User";
 // actions
-import { startGetAllTasks } from "../../actions/task";
+import { startGetAllUsers } from "../../actions/users";
 
 const TaskList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleAddTask = () => {
-    navigate("/tasks/add");
+  const handleAddUser = () => {
+    navigate("/users/add");
   };
 
-  const tasks = useSelector((state) => state.tasks);
+  const users = useSelector((state) => state.users);
 
   useEffect(() => {
-    dispatch(startGetAllTasks());
+    dispatch(startGetAllUsers());
   }, [dispatch]);
 
   return (
     <div className="task-list">
       <div className="task-list-header">
-        {tasks.length === 0 ? (
-          <h3>No hay tareas</h3>
+        {users.length === 0 ? (
+          <h3>No hay usuarios</h3>
         ) : (
-          <h3>Total tareas {tasks.length}</h3>
+          <h3>Total usuarios {users.length}</h3>
         )}
         <button
           type="button"
           className="btn btn-primary"
-          onClick={handleAddTask}
+          onClick={handleAddUser}
         >
-          Agregar tarea
+          Agregar usuario
         </button>
       </div>
-      {tasks.map((task) => (
-        <Task key={task._id} task={task} />
+      {users.map((user) => (
+        <User key={user._id} user={user} />
       ))}
     </div>
   );
