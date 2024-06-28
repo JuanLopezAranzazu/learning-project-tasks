@@ -1,0 +1,52 @@
+POST http://localhost:3001/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com",
+  "password": "admin123"
+}
+
+###
+
+GET http://localhost:3001/api/v1/task
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjdkYjU0NGE2MzI1ODRmMGU2MDM3NDkiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTk1MTQ2ODQsImV4cCI6MTcxOTYwMTA4NH0.pgPMwhCCTyD2R-3aRdzVYJXdRqsHhEgaR7HqsiFMXfc
+
+###
+
+GET http://localhost:3001/api/v1/task/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjdkYjU0NGE2MzI1ODRmMGU2MDM3NDkiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTk1MTQ2ODQsImV4cCI6MTcxOTYwMTA4NH0.pgPMwhCCTyD2R-3aRdzVYJXdRqsHhEgaR7HqsiFMXfc
+
+###
+
+GET http://localhost:3001/api/v1/task/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjdkYjU0NGE2MzI1ODRmMGU2MDM3NDkiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTk1MTQ2ODQsImV4cCI6MTcxOTYwMTA4NH0.pgPMwhCCTyD2R-3aRdzVYJXdRqsHhEgaR7HqsiFMXfc
+
+###
+
+POST http://localhost:3001/api/v1/task
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjdkYjU0NGE2MzI1ODRmMGU2MDM3NDkiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTk1MTQ2ODQsImV4cCI6MTcxOTYwMTA4NH0.pgPMwhCCTyD2R-3aRdzVYJXdRqsHhEgaR7HqsiFMXfc
+
+{
+  "title": "Task 1",
+  "description": "Task 1 description",
+  "dueDate": "2023-04-01T00:00:00.000Z"
+}
+
+###
+
+PUT http://localhost:3001/api/v1/task/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjdkYjU0NGE2MzI1ODRmMGU2MDM3NDkiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTk1MTQ2ODQsImV4cCI6MTcxOTYwMTA4NH0.pgPMwhCCTyD2R-3aRdzVYJXdRqsHhEgaR7HqsiFMXfc
+
+{
+  "title": "Task 1",
+  "description": "Task 1 description",
+  "dueDate": "2024-07-01T00:00:00.000Z"
+}
+
+###
+
+DELETE  http://localhost:3001/api/v1/task/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjdkYjU0NGE2MzI1ODRmMGU2MDM3NDkiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3MTk1MTQ2ODQsImV4cCI6MTcxOTYwMTA4NH0.pgPMwhCCTyD2R-3aRdzVYJXdRqsHhEgaR7HqsiFMXfc
+
