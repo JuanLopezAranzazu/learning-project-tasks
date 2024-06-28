@@ -99,7 +99,7 @@ const deleteTask = async (req, res, next) => {
         .json({ message: `La tarea con id ${id} no se encuentra` });
       return;
     }
-    // eliminar el Task
+    // eliminar la tarea
     await Task.deleteOne({ _id: id });
     res.status(204).json({ message: "Tarea eliminado con éxito" });
   } catch (error) {

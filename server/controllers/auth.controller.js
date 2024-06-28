@@ -16,10 +16,10 @@ const registerUser = async (req, res, next) => {
     }
     // encriptar la contraseña
     const hash = await bcrypt.hash(password, 10);
-    // buscar el rol customer
-    const foundRole = await Role.findOne({ name: "customer" });
+    // buscar el rol user
+    const foundRole = await Role.findOne({ name: "user" });
     if (!foundRole) {
-      return res.status(400).json({ message: "El rol customer no existe" });
+      return res.status(400).json({ message: "El rol user no existe" });
     }
 
     // guardar el usuario en la base de datos

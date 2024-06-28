@@ -41,7 +41,7 @@ const createUser = async (req, res, next) => {
     }
     // encriptar la contraseña
     const hash = await bcrypt.hash(password, 10);
-    // buscar el rol customer
+    // buscar el rol
     const foundRole = await Role.findOne({ name: roleName });
     if (!foundRole) {
       return res.status(400).json({ message: `El rol ${roleName} no existe` });
@@ -53,7 +53,7 @@ const createUser = async (req, res, next) => {
       password: hash,
       role: foundRole._id,
     });
-    const savedUser = await newUser.save();
+    const savedUser = (await newUser.save()).populate("role");
     res.status(201).json(savedUser);
   } catch (error) {
     if (error.name === "ValidationError" || error.name === "MongoError") {
@@ -68,7 +68,7 @@ const updateUser = async (req, res, next) => {
   try {
     const { params, body } = req;
     const { id } = params;
-    const { email, password, ...rest } = body;
+    const { email, password, roleName, ...rest } = body;
     // buscar el usuario
     const user = await User.findById(id);
     if (!user) {
@@ -77,20 +77,25 @@ const updateUser = async (req, res, next) => {
         .json({ message: `El usuario con id ${id} no se encuentra` });
       return;
     }
-    // validar que el email no exista
-    const emailExists = await User.findOne({ email });
+    // validar que el email no exista y que no sea el mismo
+    const emailExists = await User.findOne({ email, _id: { $ne: id } });
     if (emailExists) {
       res.status(400).json({ message: `El correo ${email} ya existe` });
       return;
+    }
+    // buscar el rol
+    const foundRole = await Role.findOne({ name: roleName });
+    if (!foundRole) {
+      return res.status(400).json({ message: `El rol ${roleName} no existe` });
     }
     // encriptar la contraseña
     const hash = await bcrypt.hash(password, 10);
     // actualizar el usuario
     const userUpdated = await User.findByIdAndUpdate(
       id,
-      { email, password: hash, ...rest },
+      { email, password: hash, role: foundRole._id, ...rest },
       { new: true }
-    );
+    ).populate("role");
     res.status(200).json(userUpdated);
   } catch (error) {
     if (error.name === "ValidationError" || error.name === "MongoError") {
@@ -113,6 +118,8 @@ const deleteUser = async (req, res, next) => {
         .json({ message: `El usuario con id ${id} no se encuentra` });
       return;
     }
+    // borrar tareas asociadas al usuario
+    await Task.deleteMany({ user: id });
     await User.deleteOne({ _id: id });
     res.status(204).json({ message: "Usuario eliminado con éxito" });
   } catch (error) {
